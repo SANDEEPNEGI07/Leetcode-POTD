@@ -1,62 +1,42 @@
-name: README Generator
+name: 🧩 Auto Update README
+
 on:
   push:
     branches: [ main ]
-    # avoid retriggering workflow when only README.md is changed by the action
     paths-ignore:
       - 'README.md'
   workflow_dispatch:
 
 jobs:
   update-readme:
-    # request explicit write permissions (helps in org-restricted repos)
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-    runs-on: ubuntu-latest
 
     steps:
-      - name: Get Code
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
-      
-      - name: Set up python
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-        
-      - name: Run README Generator
-        run: python scripts/update_readme.py
-      - name: Push README to main using PAT (if provided)
-        if: ${{ secrets.GITHUB_PAT != '' }}
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git add README.md || true
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: update README with new problem(s) - ${{ github.sha }}"
-            # set remote to use PAT for authentication
-            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_PAT }}@github.com/${{ github.repository }}.git
-            git push origin HEAD:refs/heads/main
-          else
-            echo "No README changes to commit"
-          fi
 
-      - name: Create PR if README changed
-        if: ${{ secrets.GITHUB_PAT == '' }}
-        # use peter-evans action to commit changes to a branch and open a PR
+      - name: Generate README
+        run: python scripts/update_readme.py
+
+      - name: Create Pull Request for README update
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: chore: update README with new problem(s) - ${{ github.sha }}
-          committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          # use a stable branch so the action updates the same PR instead of creating a new one each run
-          branch: update/readme
-          title: chore: update README with new problem(s)
+          commit-message: "chore: update README with new problem(s) - ${{ github.sha }}"
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          branch: automation/update-readme
+          title: "chore: update README with new problem(s)"
           body: |
-            This pull request updates the generated README.md with newly added problem(s).
+            This automated PR updates **README.md** with newly added problem(s).
           labels: automated, readme
           paths: README.md
-      
