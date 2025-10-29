@@ -1,4 +1,4 @@
-name: 🧩 Auto Update README
+name: Auto Update README
 
 on:
   push:
@@ -40,4 +40,4 @@ jobs:
           body: |
             This automated PR updates **README.md** with newly added problem(s).
           labels: automated, readme
-          paths: README.md
+          add-paths: README.md
