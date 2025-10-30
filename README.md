@@ -2,6 +2,7 @@
 
 | Date | Problem Name | Leetcode Link | Solution |
 |------|---------------|----------------|-----------|
+| 2025-10-30 | Minimum Number of Increments on Subarrays to Form a Target Array | [🔗 Link](https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/) | [View](./1526.py) |
 | 2025-10-29 | Smallest Number With All Set Bits | [🔗 Link](https://leetcode.com/problems/smallest-number-with-all-set-bits/) | [View](./3370.cpp) |
 | 2025-10-29 | Smallest Number With All Set Bits | [🔗 Link](https://leetcode.com/problems/smallest-number-with-all-set-bits/) | [View](./3370.py) |
 | 2025-10-28 | Make Array Elements Equal to Zero | [🔗 Link](https://leetcode.com/problems/make-array-elements-equal-to-zero/) | [View](./3354.py) |
