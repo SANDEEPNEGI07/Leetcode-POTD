@@ -1,8 +1,9 @@
-name: Auto Update README
+name: Auto-Update README
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths-ignore:
       - 'README.md'
   workflow_dispatch:
@@ -12,10 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write 
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -28,16 +28,8 @@ jobs:
       - name: Generate README
         run: python scripts/update_readme.py
 
-      - name: Create Pull Request for README update
-        uses: peter-evans/create-pull-request@v5
+      - name: Commit & push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update README with new problem(s) - ${{ github.sha }}"
-          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-          branch: automation/update-readme
-          title: "chore: update README with new problem(s)"
-          body: |
-            This automated PR updates **README.md** with newly added problem(s).
-          labels: automated, readme
-          add-paths: README.md
+          commit_message: "chore: update README with new problem(s)"
+          file_pattern: 'README.md'
