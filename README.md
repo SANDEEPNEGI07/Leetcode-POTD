@@ -1,4 +1,4 @@
-# 🧩 Leetcode Problem of the Day Tracker
+# Leetcode (POTD)
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
