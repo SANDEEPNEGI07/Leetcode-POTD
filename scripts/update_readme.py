@@ -57,7 +57,7 @@ def extract_title(path: str) -> str:
 
 
 def git_date_for_file(path: str) -> str:
-    """Return last commit date for a file in YYYY-MM-DD format.
+    """Return last commit date for a file in DD-MM-YYYY format.
 
     Falls back to file modification time if git is not available or file not committed.
     """
@@ -66,12 +66,17 @@ def git_date_for_file(path: str) -> str:
                              capture_output=True, text=True, check=True)
         date = res.stdout.strip()
         if date:
-            return date
+            # git returns YYYY-MM-DD with --date=short; reformat to DD-MM-YYYY
+            try:
+                dt = datetime.strptime(date, "%Y-%m-%d")
+                return dt.strftime("%d-%m-%Y")
+            except Exception:
+                return date
     except Exception:
         pass
 
     ts = os.path.getmtime(path)
-    return datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d")
+    return datetime.utcfromtimestamp(ts).strftime("%d-%m-%Y")
 
 
 def should_include(path: str) -> bool:
@@ -105,12 +110,13 @@ def main():
     # sort by date descending
     entries.sort(key=lambda e: e["date"], reverse=True)
 
-    table = "| Date | Problem Name | Leetcode Link | Solution |\n"
-    table += "|------|---------------|----------------|-----------|\n"
+    table = "| Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |\n"
+    table += "|-------------------|---------------|----------------|-----------|\n"
     for e in entries:
         display_title = e["title"].replace("_", " ")
         link_md = f"[🔗 Link]({e['link']})" if e["link"] else ""
-        table += f"| {e['date']} | {display_title} | {link_md} | [View]({e['path']}) |\n"
+        # wrap date in inline code to keep it as a single block and avoid wrapping
+        table += f"| `{e['date']}` | {display_title} | {link_md} | [View]({e['path']}) |\n"
 
     content = f"""# 🧩 Leetcode Problem of the Day Tracker
 
