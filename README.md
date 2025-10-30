@@ -1,6 +1,6 @@
 # Leetcode (POTD)
 
-| Date  | Problem Name | Leetcode Link | Solution |
+| Date of Problem  | Problem Name | Leetcode Link | Solution |
 |---------------|---------------|----------------|-----------|
 | `30-10-2025` | Minimum Number of Increments on Subarrays to Form a Target Array | [🔗 Link](https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/) | [View](./1526.py) |
 | `29-10-2025` | Smallest Number With All Set Bits | [🔗 Link](https://leetcode.com/problems/smallest-number-with-all-set-bits/) | [View](./3370.cpp) |
