@@ -92,51 +92,114 @@ def should_include(path: str) -> bool:
     return ext in EXTENSIONS
 
 
+def get_files_changed_today() -> list:
+    """Return list of code files changed today (based on git log --since=date).
+
+    Uses UTC date (YYYY-MM-DD) as the day boundary. Falls back to the last commit when git fails.
+    """
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    try:
+        out = subprocess.check_output(["git", "log", f"--since={today}", "--name-only", "--pretty=format:"], stderr=subprocess.DEVNULL)
+        files = [f.strip() for f in out.decode().splitlines() if f.strip()]
+    except Exception:
+        # fallback: use files changed in last commit
+        try:
+            out = subprocess.check_output(["git", "diff", "--name-only", "HEAD~1", "HEAD"], stderr=subprocess.DEVNULL)
+            files = [f.strip() for f in out.decode().splitlines() if f.strip()]
+        except Exception:
+            files = []
+
+    # filter and dedupe
+    seen = set()
+    results = []
+    for f in files:
+        if should_include(f) and f not in seen:
+            seen.add(f)
+            results.append(f)
+    return results
+
+
+def append_today_entries(entries: list):
+    """Insert entries immediately after the README table header separator without changing existing rows.
+
+    Each entry is a dict with keys: date,title,link,path.
+    """
+    if not os.path.exists(README):
+        # create minimal header
+        header = "# 🧩 Leetcode Problem of the Day Tracker\n\n"
+        header += "| Date (DD-MM-YYYY) | Problem Name | LeetCode Link | Solution |\n"
+        header += "|-------------------|--------------|---------------|----------|\n"
+        with open(README, "w", encoding="utf-8") as f:
+            f.write(header)
+
+    with open(README, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    # find the table separator line (the line with |---)
+    insert_idx = None
+    for i, line in enumerate(lines):
+        if line.strip().startswith("|-") and "Date" in (lines[i-1] if i-1 >= 0 else ""):
+            insert_idx = i + 1
+            break
+    # fallback: find first separator-looking line
+    if insert_idx is None:
+        for i, line in enumerate(lines):
+            if line.strip().startswith("|-"):
+                insert_idx = i + 1
+                break
+    if insert_idx is None:
+        insert_idx = len(lines)
+
+    existing_text = "\n".join(lines)
+
+    new_rows = []
+    for ent in entries:
+        title = ent.get("title", "").replace("_", " ")
+        link = ent.get("link", "")
+        date = ent.get("date") or datetime.utcnow().strftime("%d-%m-%Y")
+        path = ent.get("path", "")
+
+        # skip duplicates by title or link
+        if (link and link in existing_text) or (title and title in existing_text):
+            print(f"ℹ️ Skipping already-listed problem: {title}")
+            continue
+
+        row = f"| `{date}` | {title} | [🔗 Link]({link}) | [View]({path}) |\n"
+        new_rows.append(row)
+
+    if not new_rows:
+        print("ℹ️ No new entries to add for today.")
+        return
+
+    # insert at top of table
+    for idx, r in enumerate(new_rows):
+        lines.insert(insert_idx + idx, r)
+
+    with open(README, "w", encoding="utf-8") as f:
+        f.writelines(lines)
+
+    print(f"✅ Added {len(new_rows)} new row(s) for today to README.md")
+
+
 def main():
     entries = []
 
-    for item in sorted(os.listdir(ROOT)):
-        path = os.path.join(ROOT, item)
-        if not should_include(path):
-            continue
+    # Instead of regenerating the whole README, only add today's changed files.
+    files_today = get_files_changed_today()
+    if not files_today:
+        print("ℹ️ No files changed today to add to README.")
+        return
 
-        title = extract_title(path)
+    entries = []
+    today_str = datetime.utcnow().strftime("%d-%m-%Y")
+    for item in files_today:
+        title = extract_title(item)
         slug = slugify(title)
         link = f"https://leetcode.com/problems/{slug}/" if slug else ""
-        date = git_date_for_file(path)
         relpath = f"./{item}"
-        entries.append({"date": date, "title": title, "link": link, "path": relpath})
+        entries.append({"date": today_str, "title": title, "link": link, "path": relpath})
 
-    # sort by date descending (parse DD-MM-YYYY or fallback YYYY-MM-DD)
-    def _parse_date(d: str):
-        for fmt in ("%d-%m-%Y", "%Y-%m-%d"):
-            try:
-                return datetime.strptime(d, fmt)
-            except Exception:
-                continue
-        return datetime.min
-
-    entries.sort(key=lambda e: _parse_date(e.get("date", "")), reverse=True)
-
-    table = "| Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |\n"
-    table += "|-------------------|---------------|----------------|-----------|\n"
-    for e in entries:
-        display_title = e["title"].replace("_", " ")
-        link_md = f"[🔗 Link]({e['link']})" if e["link"] else ""
-        # wrap date in inline code to keep it as a single block and avoid wrapping
-        table += f"| `{e['date']}` | {display_title} | {link_md} | [View]({e['path']}) |\n"
-
-    content = f"""# 🧩 Leetcode Problem of the Day Tracker
-
-{table}
-
-> Auto-generated by a GitHub Action (or local script) 🚀
-"""
-
-    with open(README, "w", encoding="utf-8") as f:
-        f.write(content)
-
-    print("✅ README.md updated successfully.")
+    append_today_entries(entries)
 
 
 if __name__ == "__main__":
