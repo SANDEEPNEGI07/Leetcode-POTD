@@ -107,8 +107,16 @@ def main():
         relpath = f"./{item}"
         entries.append({"date": date, "title": title, "link": link, "path": relpath})
 
-    # sort by date descending
-    entries.sort(key=lambda e: e["date"], reverse=True)
+    # sort by date descending (parse DD-MM-YYYY or fallback YYYY-MM-DD)
+    def _parse_date(d: str):
+        for fmt in ("%d-%m-%Y", "%Y-%m-%d"):
+            try:
+                return datetime.strptime(d, fmt)
+            except Exception:
+                continue
+        return datetime.min
+
+    entries.sort(key=lambda e: _parse_date(e.get("date", "")), reverse=True)
 
     table = "| Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |\n"
     table += "|-------------------|---------------|----------------|-----------|\n"
