@@ -4,8 +4,8 @@
 |-------------------|---------------|----------------|-----------|
 | `04-11-2025` | Find X-Sum of All K-Long Subarrays I | [🔗 Link](https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i/) | [View](./3318.cpp) |
 | `03-11-2025` | Minimum Time to Make Rope Colorful | [🔗 Link](https://leetcode.com/problems/minimum-time-to-make-rope-colorful/) | [View](./1578.cpp) |
-| `03-11-2025` | Count Unguarded Cells in the Grid | [🔗 Link](https://leetcode.com/problems/count-unguarded-cells-in-the-grid/) | [View](./2257.cpp) |
-| `03-11-2025` | Delete Nodes From Linked List Present in Array | [🔗 Link](https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/) | [View](./3217.cpp) |
+| `02-11-2025` | Count Unguarded Cells in the Grid | [🔗 Link](https://leetcode.com/problems/count-unguarded-cells-in-the-grid/) | [View](./2257.cpp) |
+| `01-11-2025` | Delete Nodes From Linked List Present in Array | [🔗 Link](https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/) | [View](./3217.cpp) |
 | `30-10-2025` | Minimum Number of Increments on Subarrays to Form a Target Array | [🔗 Link](https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/) | [View](./1526.py) |
 | `29-10-2025` | Smallest Number With All Set Bits | [🔗 Link](https://leetcode.com/problems/smallest-number-with-all-set-bits/) | [View](./3370.cpp) |
 | `29-10-2025` | Smallest Number With All Set Bits | [🔗 Link](https://leetcode.com/problems/smallest-number-with-all-set-bits/) | [View](./3370.py) |
