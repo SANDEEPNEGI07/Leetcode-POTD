@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - 'README.md'
-      - .github\workflows\update_readme.yml
+      - '.github\workflows\update_readme.yml'
   workflow_dispatch:
 
 jobs:
