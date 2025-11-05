@@ -92,24 +92,36 @@ def should_include(path: str) -> bool:
     return ext in EXTENSIONS
 
 
-def get_files_changed_today() -> list:
-    """Return list of code files changed today (based on git log --since=date).
+def get_changed_files_from_push() -> list:
+    """Return list of code files from the most recent push.
 
-    Uses UTC date (YYYY-MM-DD) as the day boundary. Falls back to the last commit when git fails.
+    In CI (when GITHUB_SHA is set), uses that commit.
+    Locally, uses the last commit (HEAD).
     """
-    today = datetime.utcnow().strftime("%Y-%m-%d")
+    # If running in GitHub Actions, use the pushed commit SHA
+    gh_sha = os.environ.get("GITHUB_SHA")
+    commit_ref = gh_sha if gh_sha else "HEAD"
+    
+    files = []
     try:
-        out = subprocess.check_output(["git", "log", f"--since={today}", "--name-only", "--pretty=format:"], stderr=subprocess.DEVNULL)
+        # Get files changed in the commit
+        out = subprocess.check_output(
+            ["git", "show", "--name-only", "--pretty=format:", commit_ref], 
+            stderr=subprocess.DEVNULL
+        )
         files = [f.strip() for f in out.decode().splitlines() if f.strip()]
     except Exception:
-        # fallback: use files changed in last commit
+        # Fallback: use diff between HEAD and previous commit
         try:
-            out = subprocess.check_output(["git", "diff", "--name-only", "HEAD~1", "HEAD"], stderr=subprocess.DEVNULL)
+            out = subprocess.check_output(
+                ["git", "diff", "--name-only", "HEAD~1", "HEAD"], 
+                stderr=subprocess.DEVNULL
+            )
             files = [f.strip() for f in out.decode().splitlines() if f.strip()]
         except Exception:
             files = []
 
-    # filter and dedupe
+    # Filter and dedupe
     seen = set()
     results = []
     for f in files:
@@ -119,7 +131,7 @@ def get_files_changed_today() -> list:
     return results
 
 
-def append_today_entries(entries: list):
+def append_entries(entries: list):
     """Insert entries immediately after the README table header separator without changing existing rows.
 
     Each entry is a dict with keys: date,title,link,path.
@@ -168,7 +180,7 @@ def append_today_entries(entries: list):
         new_rows.append(row)
 
     if not new_rows:
-        print("ℹ️ No new entries to add for today.")
+        print("ℹ️ No new entries to add (all files already in README).")
         return
 
     # insert at top of table
@@ -178,28 +190,33 @@ def append_today_entries(entries: list):
     with open(README, "w", encoding="utf-8") as f:
         f.writelines(lines)
 
-    print(f"✅ Added {len(new_rows)} new row(s) for today to README.md")
+    print(f"✅ Added {len(new_rows)} new row(s) to README.md")
 
 
 def main():
-    entries = []
-
-    # Instead of regenerating the whole README, only add today's changed files.
-    files_today = get_files_changed_today()
-    if not files_today:
-        print("ℹ️ No files changed today to add to README.")
+    """Process files from the most recent commit/push and add them to README."""
+    # Get files changed in the last commit (or GITHUB_SHA in CI)
+    changed_files = get_changed_files_from_push()
+    if not changed_files:
+        print("ℹ️ No solution files found in this commit.")
         return
 
     entries = []
-    today_str = datetime.utcnow().strftime("%d-%m-%Y")
-    for item in files_today:
-        title = extract_title(item)
+    for filepath in changed_files:
+        # Get the actual commit date for this file (not hardcoded "today")
+        file_date = git_date_for_file(filepath)
+        title = extract_title(filepath)
         slug = slugify(title)
         link = f"https://leetcode.com/problems/{slug}/" if slug else ""
-        relpath = f"./{item}"
-        entries.append({"date": today_str, "title": title, "link": link, "path": relpath})
+        relpath = f"./{filepath}"
+        entries.append({
+            "date": file_date,
+            "title": title,
+            "link": link,
+            "path": relpath
+        })
 
-    append_today_entries(entries)
+    append_entries(entries)
 
 
 if __name__ == "__main__":
