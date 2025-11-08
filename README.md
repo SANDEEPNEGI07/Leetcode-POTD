@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `08-11-2025` | Power Grid Maintenance | [🔗 Link](https://leetcode.com/problems/power-grid-maintenance/) | [View](./3607.cpp) |
 | `05-11-2025` | Find X-Sum of All K-Long Subarrays II | [🔗 Link](https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii/) | [View](./3321.cpp) |
 | `04-11-2025` | Find X-Sum of All K-Long Subarrays I | [🔗 Link](https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i/) | [View](./3318.cpp) |
 | `03-11-2025` | Minimum Time to Make Rope Colorful | [🔗 Link](https://leetcode.com/problems/minimum-time-to-make-rope-colorful/) | [View](./1578.cpp) |
