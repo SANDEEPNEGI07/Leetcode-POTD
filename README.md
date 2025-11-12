@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `12-11-2025` | Minimum Number of Operations to Make All Array Elements Equal to 1 | [🔗 Link](https://leetcode.com/problems/minimum-number-of-operations-to-make-all-array-elements-equal-to-1/) | [View](./2654.cpp) |
 | `11-11-2025` | Ones and Zeroes | [🔗 Link](https://leetcode.com/problems/ones-and-zeroes/) | [View](./474.cpp) |
 | `10-11-2025` | Minimum Operations to Convert All Elements to Zero | [🔗 Link](https://leetcode.com/problems/minimum-operations-to-convert-all-elements-to-zero/) | [View](./3542.cpp) |
 | `09-11-2025` | Count Operations to Obtain Zero | [🔗 Link](https://leetcode.com/problems/count-operations-to-obtain-zero/) | [View](./2169.cpp) |
