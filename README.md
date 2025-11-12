@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `11-11-2025` | Ones and Zeroes | [🔗 Link](https://leetcode.com/problems/ones-and-zeroes/) | [View](./474.cpp) |
 | `10-11-2025` | Minimum Operations to Convert All Elements to Zero | [🔗 Link](https://leetcode.com/problems/minimum-operations-to-convert-all-elements-to-zero/) | [View](./3542.cpp) |
 | `09-11-2025` | Count Operations to Obtain Zero | [🔗 Link](https://leetcode.com/problems/count-operations-to-obtain-zero/) | [View](./2169.cpp) |
 | `08-11-2025` | Minimum One Bit Operations to Make Integers Zero | [🔗 Link](https://leetcode.com/problems/minimum-one-bit-operations-to-make-integers-zero/) | [View](./1611.cpp) |
