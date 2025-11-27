@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `27-11-2025` | Maximum Subarray Sum With Length Divisible by K | [🔗 Link](https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/) | [View](./3381.cpp) |
 | `23-11-2025` | Greatest Sum Divisible by Three | [🔗 Link](https://leetcode.com/problems/greatest-sum-divisible-by-three/) | [View](./1262.cpp) |
 | `12-11-2025` | Minimum Number of Operations to Make All Array Elements Equal to 1 | [🔗 Link](https://leetcode.com/problems/minimum-number-of-operations-to-make-all-array-elements-equal-to-1/) | [View](./2654.cpp) |
 | `11-11-2025` | Ones and Zeroes | [🔗 Link](https://leetcode.com/problems/ones-and-zeroes/) | [View](./474.cpp) |
