@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `30-11-2025` | Make Sum Divisible by P | [🔗 Link](https://leetcode.com/problems/make-sum-divisible-by-p/) | [View](./1590.cpp) |
 | `29-11-2025` | Minimum Operations to Make Array Sum Divisible by K | [🔗 Link](https://leetcode.com/problems/minimum-operations-to-make-array-sum-divisible-by-k/) | [View](./3512.cpp) |
 | `28-11-2025` | include <bits/stdc++.h> | [🔗 Link](https://leetcode.com/problems/include-bits-stdc-h/) | [View](./2872.cpp) |
 | `27-11-2025` | Maximum Subarray Sum With Length Divisible by K | [🔗 Link](https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/) | [View](./3381.cpp) |
