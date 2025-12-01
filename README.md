@@ -5,7 +5,7 @@
 | `01-12-2025` | Maximum Running Time of N Computers | [🔗 Link](https://leetcode.com/problems/maximum-running-time-of-n-computers/) | [View](./2141.cpp) |
 | `30-11-2025` | Make Sum Divisible by P | [🔗 Link](https://leetcode.com/problems/make-sum-divisible-by-p/) | [View](./1590.cpp) |
 | `29-11-2025` | Minimum Operations to Make Array Sum Divisible by K | [🔗 Link](https://leetcode.com/problems/minimum-operations-to-make-array-sum-divisible-by-k/) | [View](./3512.cpp) |
-| `28-11-2025` | include <bits/stdc++.h> | [🔗 Link](https://leetcode.com/problems/include-bits-stdc-h/) | [View](./2872.cpp) |
+| `28-11-2025` | Maximum Number of K-Divisible Components | [🔗 Link](https://https://leetcode.com/problems/maximum-number-of-k-divisible-components/) | [View](./2872.cpp) |
 | `27-11-2025` | Maximum Subarray Sum With Length Divisible by K | [🔗 Link](https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/) | [View](./3381.cpp) |
 | `23-11-2025` | Greatest Sum Divisible by Three | [🔗 Link](https://leetcode.com/problems/greatest-sum-divisible-by-three/) | [View](./1262.cpp) |
 | `12-11-2025` | Minimum Number of Operations to Make All Array Elements Equal to 1 | [🔗 Link](https://leetcode.com/problems/minimum-number-of-operations-to-make-all-array-elements-equal-to-1/) | [View](./2654.cpp) |
