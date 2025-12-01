@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `01-12-2025` | Maximum Running Time of N Computers | [🔗 Link](https://leetcode.com/problems/maximum-running-time-of-n-computers/) | [View](./2141.cpp) |
 | `30-11-2025` | Make Sum Divisible by P | [🔗 Link](https://leetcode.com/problems/make-sum-divisible-by-p/) | [View](./1590.cpp) |
 | `29-11-2025` | Minimum Operations to Make Array Sum Divisible by K | [🔗 Link](https://leetcode.com/problems/minimum-operations-to-make-array-sum-divisible-by-k/) | [View](./3512.cpp) |
 | `28-11-2025` | include <bits/stdc++.h> | [🔗 Link](https://leetcode.com/problems/include-bits-stdc-h/) | [View](./2872.cpp) |
