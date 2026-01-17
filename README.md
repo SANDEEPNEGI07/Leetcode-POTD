@@ -2,6 +2,7 @@
 
 | Date (DD-MM-YYYY) | Problem Name | Leetcode Link | Solution |
 |-------------------|---------------|----------------|-----------|
+| `17-01-2026` | Find the Largest Area of Square Inside Two Rectangles | [🔗 Link](https://leetcode.com/problems/find-the-largest-area-of-square-inside-two-rectangles/) | [View](./3047.cpp) |
 | `09-01-2026` | Smallest Subtree with all the Deepest Nodes | [🔗 Link](https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/) | [View](./865.cpp) |
 | `09-12-2025` | Count Special Triplets | [🔗 Link](https://leetcode.com/problems/count-special-triplets/) | [View](./3583.cpp) |
 | `01-12-2025` | Maximum Running Time of N Computers | [🔗 Link](https://leetcode.com/problems/maximum-running-time-of-n-computers/) | [View](./2141.cpp) |
